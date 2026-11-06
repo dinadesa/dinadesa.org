@@ -20,16 +20,16 @@ const { title, description } = Astro.props;
 		<title>{title ? `${title} | dinadesa.org` : 'dinadesa.org'}</title>
 		{description && <meta name="description" content={description} />}
 	</head>
-	<body>
+	<body class="flex min-h-screen flex-col">
 		<slot />
+		<footer class="mt-auto py-6 text-center text-sm text-gray-500">
+			<a href="/privacy" class="hover:underline">Privacy Policy</a>
+		</footer>
 	</body>
 </html>
 
 <style>
-	html,
 	body {
 		margin: 0;
-		width: 100%;
-		height: 100%;
 	}
 </style>
