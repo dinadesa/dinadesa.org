@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+// Each markdown file in src/content/pages becomes a page at its file path,
+// e.g. src/content/pages/about.md -> /about, and index.md -> /
+export async function getStaticPaths() {
+	const pages = await getCollection('pages');
+	return pages.map((page) => ({
+		params: { slug: page.id === 'index' ? undefined : page.id },
+		props: { page },
+	}));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+
+<Layout title={page.data.title} description={page.data.description}>
+	<main class="prose mx-auto max-w-3xl px-4 py-12">
+		<h1>{page.data.title}</h1>
+		<Content />
+	</main>
+</Layout>
